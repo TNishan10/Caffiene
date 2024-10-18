@@ -1,4 +1,4 @@
-export default function Stats() {
+export default function CoffeeForm() {
     return (
         <>
         

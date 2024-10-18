@@ -1,11 +1,7 @@
-import React from 'react'
-
-const Authentication = () => {
+export default function Authentication() {
   return (
-    <div>
+      <>
       
-    </div>
+      </>
   )
 }
-
-export default Authentication
