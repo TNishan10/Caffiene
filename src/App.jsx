@@ -8,7 +8,7 @@ import Authentication from "./components/Authentication"
 
 function App() {
  
-  const isAuthenticated = false
+  const isAuthenticated = true
 
   const authenticatedContent = (
     <>
