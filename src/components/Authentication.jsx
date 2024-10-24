@@ -27,7 +27,6 @@ export default function Authentication() {
           <button onClick={() => {setIsRegistration(!isRegistration)}}>
             <p>{isRegistration ? 'Sign in' : 'Sign up'}</p></button>
         </div>
-        <div>Hello Wordl</div>
       </>
   ) 
 }
