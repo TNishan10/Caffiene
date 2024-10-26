@@ -25,7 +25,9 @@ export default function CoffeeForm(props) {
         handleCloseModal={() => {
             setShowModal(false)
         }}>
-            <Authentication />
+            <Authentication handleCloseModal={() => {
+                setShowModal(false)
+            }} />
         </Modal>)}
         <div className="section-header">
             <i className="fa-solid fa-pencil"></i>

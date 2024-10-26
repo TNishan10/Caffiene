@@ -42,6 +42,7 @@ export function AuthProvider(props){
             // if there's no user, empty the user state and return from this listener
 
             console.log("CURRENT USER: ", user)
+            setGlobalUser(user)
 
             if (!user){
                 console.log("No user found")
