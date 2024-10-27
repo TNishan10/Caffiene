@@ -19,15 +19,15 @@ export default function CoffeeForm(props) {
         console.log(selectedCoffee, coffeeCost, hour, min  )
     }
 
+    function handleCloseModal(){
+        setShowModal(false)
+      }
+
     return (
         <>
         {showModal && (<Modal
-        handleCloseModal={() => {
-            setShowModal(false)
-        }}>
-            <Authentication handleCloseModal={() => {
-                setShowModal(false)
-            }} />
+        handleCloseModal={handleCloseModal}>
+            <Authentication handleCloseModal={handleCloseModal} />
         </Modal>)}
         <div className="section-header">
             <i className="fa-solid fa-pencil"></i>
@@ -101,6 +101,7 @@ export default function CoffeeForm(props) {
                     <p>Add Entry</p>
                 </button>
             </div>
+            <div>hello word</div>
         </>
     )
 }

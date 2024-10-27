@@ -7,6 +7,7 @@ export default function Authentication(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isAuthenticating, setisAuthenticating] = useState(false)
+  const [error, setError] = useState(null)
 
   const {signUp, login} = useAuth()
 
@@ -17,6 +18,7 @@ export default function Authentication(props) {
     }
     try{
       setisAuthenticating(true)
+      setError(null)
 
       if (isRegistration){
         //Register user
@@ -31,6 +33,7 @@ export default function Authentication(props) {
       handleCloseModal()
     } catch(err){
       console.log(err.message)
+      setError(err.message)
     }finally{
       setisAuthenticating(false)
     }
@@ -42,6 +45,7 @@ export default function Authentication(props) {
       <>
         <h2 className="sign-up-text">{isRegistration ? 'Sign Up' : 'Login'  }</h2>
         <p>{isRegistration ? "Create an account" : "Sign in to your account!"}</p>
+        {error && <p>❌ {error}</p>}
         <input value={email} onChange={(e) => {
           setEmail(e.target.value)
         }} placeholder="Email" />
