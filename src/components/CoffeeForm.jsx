@@ -101,7 +101,6 @@ export default function CoffeeForm(props) {
                     <p>Add Entry</p>
                 </button>
             </div>
-            <div>hello word</div>
         </>
     )
 }
