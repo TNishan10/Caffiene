@@ -1,6 +1,9 @@
 import {coffeeOptions} from '../utils';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import Authentication from './Authentication';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function CoffeeForm(props) {
     const {isAuthenticated} = props;
@@ -11,12 +14,58 @@ export default function CoffeeForm(props) {
     const [min, setMin] = useState(0);
     const [showModal, setShowModal] = useState(false);
 
-    function handleSubmitForm(){
+    const {globalData, setGlobalData, globalUser} = useAuth()
+
+    async function handleSubmitForm(){
         if(!isAuthenticated){
             setShowModal(true)
             return
         }
-        console.log(selectedCoffee, coffeeCost, hour, min  )
+
+        //Define a  guard clause that only submits the form if it is completed
+        if(!selectedCoffee){
+            return
+        }
+
+        try{
+            const newGlobalData = {
+                ...(globalData || {})
+            }
+    
+            const nowTime = Date.now()
+    
+            const timeToSubtract = (hour * 60 * 60 *1000) + (min * 60 * 1000)
+    
+            const timeStamp = nowTime - timeToSubtract
+    
+            const newData = {
+                name: selectedCoffee,
+                cost: coffeeCost
+            }
+    
+            newGlobalData[timeStamp] = newData
+            console.log(timeStamp, selectedCoffee, coffeeCost )
+            //update the global state
+    
+            setGlobalData(newGlobalData)
+    
+            //persist the data in the firebase database
+            const userRef = doc(db, 'users', globalUser.uid)
+            const res = await setDoc(userRef, {[timeStamp]: newData
+        },{merge: true})
+
+            setSelectedCoffee(null)
+            setHour(0)
+            setMin(0)
+            setCoffeeCost(0)
+        } 
+
+        
+        catch(err){
+            console.log(err.message)
+        }
+
+        // then were going to create a new data object   
     }
 
     function handleCloseModal(){
